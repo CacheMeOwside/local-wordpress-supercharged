@@ -11,7 +11,7 @@ import { execFile } from 'child_process';
 import { VulnPackageQuery, VulnScanMatch, VulnScanOptions, VulnScanResult } from '../../shared/types';
 
 // ---------------------------------------------------------------------------
-// Shell helpers (same pattern as profiler-setup.service.ts)
+// Shell helpers
 // ---------------------------------------------------------------------------
 
 interface ExecOpts {

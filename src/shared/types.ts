@@ -15,31 +15,11 @@ export interface SuperchargedCache {
 	cachedAt: number;
 	cacheVersion?: number;
 	ngrok?: NgrokCache;
-	profiler?: ProfilerCache;
 }
 
 export interface NgrokCache {
 	enabled: boolean;
 	url: string;
-}
-
-export interface ProfilerCache {
-	setupCompleted: boolean;
-	phpVersion?: string;
-}
-
-export type ToolStatus = 'ready' | 'missing' | 'error';
-
-export interface ToolCheckResult {
-	status: ToolStatus;
-	version?: string;
-	error?: string;
-}
-
-export interface ProfilerSetupStatus {
-	xhprof: ToolCheckResult;
-	k6: ToolCheckResult;
-	muPlugin: ToolCheckResult;
 }
 
 /**
@@ -54,11 +34,6 @@ export const WP_DEFAULTS: DebugConstantsMap = {
 };
 
 export const DEFAULT_DEBUG_STATE: DebugConstantsMap = { ...WP_DEFAULTS };
-
-/** Feature flags. Set to true to enable, false to hide (code stays in place). */
-export const FEATURE_FLAGS = {
-	PROFILER: false,
-} as const;
 
 export const NGROK_CONSTANTS = [ 'WP_HOME', 'WP_SITEURL' ] as const;
 
@@ -77,10 +52,6 @@ export const IPC_CHANNELS = {
 	STOP_NGROK_PROCESS: 'supercharged:stop-ngrok-process',
 	GET_NGROK_PROCESS_STATUS: 'supercharged:get-ngrok-process-status',
 	NGROK_PROCESS_STATUS_CHANGED: 'supercharged:ngrok-process-status-changed',
-	GET_PROFILER_STATUS: 'supercharged:get-profiler-status',
-	RUN_PROFILER_SETUP: 'supercharged:run-profiler-setup',
-	PROFILER_SETUP_LOG: 'supercharged:profiler-setup-log',
-	PROFILER_SETUP_COMPLETED: 'supercharged:profiler-setup-completed',
 	GET_PLUGIN_LIST: 'supercharged:get-plugin-list',
 	GET_CONFLICT_OVERRIDES: 'supercharged:get-conflict-overrides',
 	SET_CONFLICT_OVERRIDE: 'supercharged:set-conflict-override',
