@@ -9,6 +9,7 @@ import { registerConflictTestHooks } from './features/conflict-test/ConflictTest
 import { registerVulnScanHooks } from './features/vuln-scan/VulnScanPanel';
 import { registerSnapshotsHooks } from './features/snapshots/SnapshotsPanel';
 import { registerSiteSearchHooks } from './features/site-search/site-search.hooks';
+import { registerUpdateNoticeBanner } from './features/update-notice/UpdateNoticeBanner';
 
 /**
  * Renderer process entry point. Registers UI hooks for all addon features
@@ -17,7 +18,7 @@ import { registerSiteSearchHooks } from './features/site-search/site-search.hook
  * @param context
  */
 export default function( context: LocalRenderer.AddonRendererContext ): void {
-	const { React, hooks } = context;
+	const { React, hooks, store } = context;
 
 	registerSiteSearchHooks( React, hooks );
 	registerDebugConstantsHooks( React, hooks );
@@ -25,4 +26,5 @@ export default function( context: LocalRenderer.AddonRendererContext ): void {
 	registerConflictTestHooks( React, hooks );
 	registerVulnScanHooks( React, hooks );
 	registerSnapshotsHooks( React, hooks );
+	registerUpdateNoticeBanner( React, store );
 }

@@ -64,6 +64,9 @@ export const IPC_CHANNELS = {
 	TAKE_SNAPSHOT: 'supercharged:take-snapshot',
 	RESTORE_SNAPSHOT: 'supercharged:restore-snapshot',
 	DELETE_SNAPSHOT: 'supercharged:delete-snapshot',
+	GET_UPDATE_STATUS: 'supercharged:get-update-status',
+	UPDATE_STATUS_CHANGED: 'supercharged:update-status-changed',
+	OPEN_RELEASE_URL: 'supercharged:open-release-url',
 } as const;
 
 export interface PluginInfo {
@@ -133,4 +136,18 @@ export interface SnapshotInfo {
 	name: string;
 	date: number;
 	size: number;
+}
+
+// ---------------------------------------------------------------------------
+// Update Notice
+// ---------------------------------------------------------------------------
+
+export interface UpdateStatus {
+	updateAvailable: boolean;
+	currentVersion: string;
+	latestVersion?: string;
+	releaseUrl?: string;
+	/** Epoch ms of the last successful (or attempted) check. */
+	checkedAt: number;
+	error?: string;
 }
