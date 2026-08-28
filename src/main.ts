@@ -37,8 +37,8 @@ export default function( context: LocalMain.AddonMainContext ): void {
 		addon: 'wordpress-supercharged',
 	} );
 
-	if (initialized) {
-		logger.info('Add-on already initialized in this process. Skipping duplicate registration.');
+	if ( initialized ) {
+		logger.info( 'Add-on already initialized in this process. Skipping duplicate registration.' );
 		return;
 	}
 	initialized = true;
