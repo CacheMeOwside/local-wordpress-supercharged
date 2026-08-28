@@ -14,6 +14,16 @@ import { stopNgrokProcess } from './features/ngrok/ngrok.process';
 import { readNgrokCache, writeNgrokCache } from './features/ngrok/ngrok.service';
 
 /**
+ * Guards against Local invoking this entry point more than once per process.
+ *
+ * Without the initialized flag, the function below would otherwise register a second set
+ * of IPC listeners and hooks after any Lightning Service (like PHP) is downloaded or upgraded.
+ * Everything downstream would then run twice per user action.
+ *
+ */
+let initialized = false;
+
+/**
  * Main process entry point. Registers IPC listeners for all addon features
  * and sets up the siteStopped hook for ngrok cleanup.
  *
@@ -26,6 +36,12 @@ export default function( context: LocalMain.AddonMainContext ): void {
 		thread: 'main',
 		addon: 'wordpress-supercharged',
 	} );
+
+	if (initialized) {
+		logger.info('Add-on already initialized in this process. Skipping duplicate registration.');
+		return;
+	}
+	initialized = true;
 
 	registerDebugConstantsIpc( { wpCli, siteData, logger } );
 	registerNgrokIpc( { wpCli, siteData, logger } );
